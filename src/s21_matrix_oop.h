@@ -6,6 +6,7 @@ class S21Matrix {
 private:
   int rows_, cols_;
   double **matrix_;
+  const double EPS = 1e-7;
 
 public:
   S21Matrix(); // Default constructor
@@ -30,6 +31,9 @@ public:
   double Determinant();
   S21Matrix InverseMatrix();
 
+  // helpers 
+  double& GetMatrixElement(int row, int col); // по ссылке, чтоб можно было поменять E.G.: matrix.GetMatrixElement(1, 2) = 5.0; 
+  S21Matrix GetMinor(const int row_s, const int col_s); 
   // overload operators 
 };
 

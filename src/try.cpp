@@ -5,9 +5,12 @@
 using namespace std; 
 
 int main(){
-    
-    S21Matrix matrix(5, 5);
-    S21Matrix second(std::move(matrix)); 
-    cout << "done" << endl ;
+   
+    try{
+        S21Matrix matrix(1, 3);
+        cout << "matrix created" << endl ;
+    } catch(exception & er) {
+        cout << er.what() << endl;
+    }
     return 0; 
 }
