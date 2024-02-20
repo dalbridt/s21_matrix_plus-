@@ -11,7 +11,7 @@ public:
   S21Matrix(); // Default constructor
   S21Matrix(int rows, int cols); // constructor with attributes 
   S21Matrix(const S21Matrix& other); // copy constructor 
-  S21Matrix(const S21Matrix&& other); // move constructor 
+  S21Matrix(S21Matrix&& other); // move constructor 
   ~S21Matrix(); // Destructor
 
   // accessors and mutators

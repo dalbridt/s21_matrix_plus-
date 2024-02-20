@@ -14,14 +14,15 @@ test:
 s21_matrix_oop.a:
 	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ_OOP_O)
 #ar -rcs $(ARCHIVER_OOP) $(OBJ_OOP_O)
-try:
+try: clean
 	$(CC) -c $(FLAGS) try.cpp -o try.o
 	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ_OOP_O)
 	ar -rcs $(ARCHIVER_OOP) try.o $(OBJ_OOP_O)
 	$(CC) -o try.out try.o $(OBJ_OOP_O)
-
-
+	./try.out
 clean: 
 	rm -rf *.out *.o *.gcno *.info s21_matrix_oop.a *.gcda *.a *.o
 	rm -rf report
+leaks: 
+	leaks -atExit -- ./try.out
 
