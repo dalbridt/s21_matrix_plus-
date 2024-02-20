@@ -67,9 +67,9 @@ void S21Matrix::set_rows(int new_rows) {
   //   *this = std::move(tmp);
   // }
 }
-void S21Matrix::set_cols(int new_cols) {
-  //
-}
+// void S21Matrix::set_cols(int new_cols) {
+//   //
+// }
 
  bool S21Matrix::EqMatrix(const S21Matrix &other){
   bool flag = true; 
@@ -97,4 +97,10 @@ void S21Matrix::set_cols(int new_cols) {
   // S21Matrix S21Matrix::CalcComplements(){}
   // double S21Matrix::Determinant(){}
   // S21Matrix S21Matrix::InverseMatrix(){}
+
+  double& S21Matrix::GetMatrixElement(int row, int col){
+    return matrix_[row][col]; 
+  }
+  
+  // S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){}
 

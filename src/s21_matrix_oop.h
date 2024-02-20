@@ -34,7 +34,23 @@ public:
   // helpers 
   double& GetMatrixElement(int row, int col); // по ссылке, чтоб можно было поменять E.G.: matrix.GetMatrixElement(1, 2) = 5.0; 
   S21Matrix GetMinor(const int row_s, const int col_s); 
+
   // overload operators 
+
+  /*double& operator()(int row, int col) &;
+  double& operator()(int row, int col) && = delete;
+  const double& operator()(int row, int col) const&;
+  const double& operator()(int row, int col) const&& = delete;
+  bool operator==(const S21Matrix& other) const;
+  S21Matrix operator+(const S21Matrix& other) const;
+  S21Matrix& operator+=(const S21Matrix& other);
+  S21Matrix operator-(const S21Matrix& other) const;
+  S21Matrix& operator-=(const S21Matrix& other);
+  S21Matrix operator*(double number) const noexcept;
+  friend S21Matrix operator*(double number, const S21Matrix& matrix) noexcept;
+  S21Matrix& operator*=(double number);
+  S21Matrix operator*(const S21Matrix& other) const;
+  S21Matrix& operator*=(const S21Matrix& other);*/
 };
 
 #endif
