@@ -1,6 +1,5 @@
 #ifndef S21MATRIX
 #define S21MATRIX
-// #include <iostream>
 
 class S21Matrix {
 private:
@@ -33,7 +32,8 @@ public:
 
   // helpers 
   double& GetMatrixElement(int row, int col); // по ссылке, чтоб можно было поменять E.G.: matrix.GetMatrixElement(1, 2) = 5.0; 
-  S21Matrix GetMinor(const int row_s, const int col_s); 
+  S21Matrix GetMinor(const int row_s, const int col_s);
+  bool isValid(); 
 
   // overload operators 
 
@@ -44,9 +44,9 @@ public:
   bool operator==(const S21Matrix& other);
   S21Matrix& operator=(const S21Matrix& other); 
   S21Matrix& operator+=(const S21Matrix& other);
-  // S21Matrix& operator-=(const S21Matrix& other);
+  S21Matrix& operator-=(const S21Matrix& other);
   // S21Matrix& operator*=(double number);
-  // (int i, int j)
+  double& operator()(int row, int col); 
 /*
   double& operator()(int row, int col) &;
   double& operator()(int row, int col) && = delete;

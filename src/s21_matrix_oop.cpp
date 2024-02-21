@@ -28,7 +28,6 @@ S21Matrix::S21Matrix(const S21Matrix &other) {
       this->matrix_[i][j] = other.matrix_[i][j];
     }
   }
-  // std::cout << "copy constructor called" << std::endl ;
 }
 
 S21Matrix::S21Matrix(S21Matrix &&other)
@@ -36,7 +35,6 @@ S21Matrix::S21Matrix(S21Matrix &&other)
   other.matrix_ = nullptr;
   other.rows_ = 0;
   other.cols_ = 0;
-  // std::cout << "move constructor called" << std::endl ;
 }
 
 S21Matrix::~S21Matrix() {
@@ -99,8 +97,24 @@ void S21Matrix::SumMatrix(const S21Matrix &other){
     }
   }
 }
-// void S21Matrix::SubMatrix(const S21Matrix &other){}
-// void S21Matrix::MulNumber(const double num){}
+void S21Matrix::SubMatrix(const S21Matrix &other){
+    if(this->rows_ != other.rows_ || this->cols_ != other.cols_){
+    throw std::logic_error("Matrix dimensions must be equal");
+  }
+    for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      this->matrix_[i][j] -= other.matrix_[i][j];
+    }
+  }
+}
+void S21Matrix::MulNumber(const double num){
+  //validate matrix 
+   for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      this->matrix_[i][j] *= num;
+    }
+   }
+}
 // void S21Matrix::MulMatrix(const S21Matrix &other){}
 // S21Matrix S21Matrix::Transpose(){}
 // S21Matrix S21Matrix::CalcComplements(){}
@@ -112,6 +126,7 @@ double &S21Matrix::GetMatrixElement(int row, int col) {
 }
 
 // S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){}
+// bool isValid(){}
 
 // S21Matrix operator+(const S21Matrix& other){}
 // S21Matrix operator-(const S21Matrix& other) {}
@@ -140,6 +155,13 @@ S21Matrix& S21Matrix::operator+=(const S21Matrix& other){
   SumMatrix(other);
   return *this;
 }
-// S21Matrix& operator-=(const S21Matrix& other){}
+S21Matrix& S21Matrix::operator-=(const S21Matrix& other){
+  SubMatrix(other);
+  return *this;
+}
 // S21Matrix& operator*=(double number){}
-// (int i, int j)
+
+double& S21Matrix::operator()(int row, int col) {
+  std::cout << "|";
+  return GetMatrixElement(row, col); 
+}
