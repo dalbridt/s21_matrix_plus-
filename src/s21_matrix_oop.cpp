@@ -1,6 +1,6 @@
 #include "s21_matrix_oop.h"
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
 S21Matrix::S21Matrix() : rows_(0), cols_(0), matrix_(nullptr) {}
 
@@ -71,36 +71,75 @@ void S21Matrix::set_rows(int new_rows) {
 //   //
 // }
 
- bool S21Matrix::EqMatrix(const S21Matrix &other){
-  bool flag = true; 
-  // нужно validate matrix 
-  if(this->rows_ != other.rows_ || this->cols_ !=other.cols_){
-    flag = false; 
-  } 
-  if(flag){
+bool S21Matrix::EqMatrix(const S21Matrix &other) {
+  bool flag = true;
+  // нужно validate matrix
+  if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
+    flag = false;
+  }
+  if (flag) {
     for (int i = 0; i < rows_ && flag; i++) {
       for (int j = 0; j < cols_; j++) {
         if (EPS < std::fabs(this->matrix_[i][j] - other.matrix_[i][j])) {
-          flag=false; 
+          flag = false;
           break;
         }
       }
     }
   }
-  return flag; 
- }
-  // void S21Matrix::SumMatrix(const S21Matrix &other){}
-  // void S21Matrix::SubMatrix(const S21Matrix &other){}
-  // void S21Matrix::MulNumber(const double num){}
-  // void S21Matrix::MulMatrix(const S21Matrix &other){}
-  // S21Matrix S21Matrix::Transpose(){}
-  // S21Matrix S21Matrix::CalcComplements(){}
-  // double S21Matrix::Determinant(){}
-  // S21Matrix S21Matrix::InverseMatrix(){}
-
-  double& S21Matrix::GetMatrixElement(int row, int col){
-    return matrix_[row][col]; 
+  return flag;
+}
+void S21Matrix::SumMatrix(const S21Matrix &other){
+  if(this->rows_ != other.rows_ || this->cols_ != other.cols_){
+    throw std::logic_error("Matrix dimensions must be equal");
   }
-  
-  // S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){}
+    for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      this->matrix_[i][j] += other.matrix_[i][j];
+    }
+  }
+}
+// void S21Matrix::SubMatrix(const S21Matrix &other){}
+// void S21Matrix::MulNumber(const double num){}
+// void S21Matrix::MulMatrix(const S21Matrix &other){}
+// S21Matrix S21Matrix::Transpose(){}
+// S21Matrix S21Matrix::CalcComplements(){}
+// double S21Matrix::Determinant(){}
+// S21Matrix S21Matrix::InverseMatrix(){}
 
+double &S21Matrix::GetMatrixElement(int row, int col) {
+  return matrix_[row][col];
+}
+
+// S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){}
+
+// S21Matrix operator+(const S21Matrix& other){}
+// S21Matrix operator-(const S21Matrix& other) {}
+// S21Matrix operator*(double number){}
+bool S21Matrix::operator==(const S21Matrix &other) {
+  return EqMatrix(other);
+}
+S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
+  if (this->matrix_ != nullptr) {
+    delete[] this->matrix_;
+  }
+  // можно бы было вызвать конструктор копирования, но я хз как
+  this->rows_ = other.rows_;
+  this->cols_ = other.cols_;
+  this->matrix_ = new double *[this->rows_];
+  for (int i = 0; i < this->rows_; ++i) {
+    this->matrix_[i] = new double[this->cols_];
+    for (int j = 0; j < this->cols_; ++j) {
+      this->matrix_[i][j] = other.matrix_[i][j];
+    }
+  }
+  return *this;
+}
+
+S21Matrix& S21Matrix::operator+=(const S21Matrix& other){
+  SumMatrix(other);
+  return *this;
+}
+// S21Matrix& operator-=(const S21Matrix& other){}
+// S21Matrix& operator*=(double number){}
+// (int i, int j)

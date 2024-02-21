@@ -8,14 +8,15 @@ int main() {
 
   try {
     S21Matrix matrix(3, 3);
-    cout << "matrix created" << endl;
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         matrix.GetMatrixElement(i, j) = 5; 
       }
     }
-    cout << "matrix filled with numbers" << endl;
+    S21Matrix second; 
+    second = matrix; 
+    matrix += second; 
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
@@ -23,9 +24,6 @@ int main() {
       }
        cout << endl; 
     }
-    S21Matrix second(matrix); 
-    second.GetMatrixElement(1,1) = 3; 
-    cout << "матрицы равны: " << second.EqMatrix(matrix) << endl; 
   } catch (exception &er) {
     cout << er.what() << endl;
   }
