@@ -10,22 +10,38 @@ int main() {
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        matrix.GetMatrixElement(i, j) = 100; 
+        matrix.GetMatrixElement(i, j) = 7;
       }
     }
-    // S21Matrix second(3, 3); 
+    // S21Matrix second(3, 3);
     // for (int i = 0; i < 3; i++) {
     //   for (int j = 0; j < 3; j++) {
-    //     second.GetMatrixElement(i, j) = 2; 
+    //     second.GetMatrixElement(i, j) = 2;
     //   }
     // }
-    S21Matrix res = matrix* 5; 
-
+    // S21Matrix res = matrix* 5;
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-       cout << res(i, j) <<" !! " ;
+        cout << matrix(i, j) << " !! ";
       }
-       cout << endl; 
+      cout << endl;
+    }
+    
+      cout << endl;
+    matrix.set_rows(5);
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        cout << matrix(i, j) << " !! ";
+      }
+      cout << endl;
+    }
+      cout << endl;
+    matrix.set_cols(5);
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        cout << matrix(i, j) << " !! ";
+      }
+      cout << endl;
     }
   } catch (exception &er) {
     cout << er.what() << endl;

@@ -35,6 +35,7 @@ S21Matrix::S21Matrix(S21Matrix &&other)
   other.matrix_ = nullptr;
   other.rows_ = 0;
   other.cols_ = 0;
+  std::cout << "move constructor called" << std::endl; 
 }
 
 S21Matrix::~S21Matrix() {
@@ -44,7 +45,6 @@ S21Matrix::~S21Matrix() {
     }
     delete[] matrix_;
   }
-  // std::cout << "destructor called" << std::endl ;
 }
 
 int S21Matrix::get_cols() { return cols_; }
@@ -54,20 +54,30 @@ void S21Matrix::set_rows(int new_rows) {
   if (new_rows < 1) {
     throw std::length_error("matrix rows should be > 1");
   }
-  // if (new_rows != rows_) {
-  //   S21Matrix tmp; // {new_rows, cols_};
-  //   int min = std::min(rows_, new_rows);
-  //   for (int i = 0; i < min; ++i) {
-  //     for (int j = 0; j < cols_; ++j) {
-  //       tmp(i, j) = (*this)(i, j);
-  //     }
-  //   }
-  //   *this = std::move(tmp);
-  // }
+  if (new_rows != rows_) {
+    S21Matrix tmp(new_rows, cols_);
+    int min = std::min(rows_, new_rows);
+    for (int i = 0; i < min; ++i) {
+      for (int j = 0; j < cols_; ++j) {
+        tmp(i, j) = (*this)(i, j);
+      }
+    }
+   *this = std::move(tmp);
+  }
 }
-// void S21Matrix::set_cols(int new_cols) {
-//   //
-// }
+void S21Matrix::set_cols(int new_cols) {
+   if (new_cols < 1) {
+    throw std::length_error("matrix columns should be > 1");
+  }
+  S21Matrix tmp(rows_, new_cols);
+  int min = std::min(cols_, new_cols); 
+   for (int i = 0; i < rows_; ++i) {
+      for (int j = 0; j < min; ++j) {
+        tmp(i, j) = (*this)(i, j);
+      }
+  }
+  *this = std::move(tmp);
+}
 
 bool S21Matrix::EqMatrix(const S21Matrix &other) {
   bool flag = true;
@@ -116,7 +126,9 @@ void S21Matrix::MulNumber(const double num){
     }
    }
 }
-// void S21Matrix::MulMatrix(const S21Matrix &other){}
+// void S21Matrix::MulMatrix(const S21Matrix &other){
+//   // WRITEME 
+// }
 // S21Matrix S21Matrix::Transpose(){}
 // S21Matrix S21Matrix::CalcComplements(){}
 // double S21Matrix::Determinant(){}
