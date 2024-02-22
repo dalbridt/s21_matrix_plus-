@@ -177,7 +177,25 @@ double &S21Matrix::GetMatrixElement(int row, int col) {
   return matrix_[row][col];
 }
 
-// S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){}
+S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){
+  S21Matrix minor(rows_ - 1, cols_ - 1); 
+    int m_r = 0;
+    for (int i = 0; i < rows_; i++) {
+      int m_col = 0;
+      if (i != row_s) {
+        for (int j = 0; j < cols_; j++) {
+          if (j != col_s) {
+            minor(m_r ,m_col) = matrix_[i][j];
+            m_col++;
+          }
+        }
+        m_r++;
+      }
+    }
+
+  return minor;
+}
+
 bool S21Matrix::isValid() const {
   return matrix_ != nullptr && cols_ > 0 && rows_ > 0;
 }

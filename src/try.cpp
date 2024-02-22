@@ -15,16 +15,16 @@ void print_matrix(S21Matrix matrix) {
 
 int main() {
   try {
-    S21Matrix matrix(3, 2);
+    S21Matrix matrix(4, 4);
 
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 2; j++) {
-        matrix.GetMatrixElement(i, j) = i+j;
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        matrix.GetMatrixElement(i, j) = i;
       }
     }
     print_matrix(matrix);
     cout << endl;
-    S21Matrix second = matrix.Transpose(); 
+    S21Matrix second = matrix.GetMinor(2, 0); 
     // S21Matrix second(2, 3);
     // for (int i = 0; i < 2; i++) {
     //   for (int j = 0; j < 3; j++) {
