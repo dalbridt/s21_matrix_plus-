@@ -91,11 +91,12 @@ void S21Matrix::SumMatrix(const S21Matrix &other){
   if(this->rows_ != other.rows_ || this->cols_ != other.cols_){
     throw std::logic_error("Matrix dimensions must be equal");
   }
-    for (int i = 0; i < rows_; ++i) {
+  for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < cols_; ++j) {
-      this->matrix_[i][j] += other.matrix_[i][j];
+      (*this)(i,j) += other.matrix_[i][j]; 
     }
   }
+  std::cout << std::endl;
 }
 void S21Matrix::SubMatrix(const S21Matrix &other){
     if(this->rows_ != other.rows_ || this->cols_ != other.cols_){
@@ -128,9 +129,27 @@ double &S21Matrix::GetMatrixElement(int row, int col) {
 // S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){}
 // bool isValid(){}
 
-// S21Matrix operator+(const S21Matrix& other){}
-// S21Matrix operator-(const S21Matrix& other) {}
-// S21Matrix operator*(double number){}
+S21Matrix S21Matrix::operator+(const S21Matrix& other){
+if( this->cols_ != other.cols_ || this->rows_ != other.rows_){
+ throw std::logic_error("Matrix dimensions must be equal");
+}
+S21Matrix result(*this); 
+result.SumMatrix(other);
+
+return result; 
+}
+S21Matrix S21Matrix::operator-(const S21Matrix& other) {
+S21Matrix result(*this); 
+result.SubMatrix(other);
+
+return result; 
+}
+S21Matrix S21Matrix::operator*(double number){
+S21Matrix result(*this); 
+result.MulNumber(number);
+
+return result; 
+}
 bool S21Matrix::operator==(const S21Matrix &other) {
   return EqMatrix(other);
 }
@@ -159,9 +178,12 @@ S21Matrix& S21Matrix::operator-=(const S21Matrix& other){
   SubMatrix(other);
   return *this;
 }
-// S21Matrix& operator*=(double number){}
+S21Matrix& S21Matrix::operator*=(double number){
+  MulNumber(number); 
+  return *this; 
+}
+// S21Matrix& operator*=(const S21Matrix& other){}
 
 double& S21Matrix::operator()(int row, int col) {
-  std::cout << "|";
   return GetMatrixElement(row, col); 
 }

@@ -36,16 +36,15 @@ public:
   bool isValid(); 
 
   // overload operators 
-
-  
-  // S21Matrix operator+(const S21Matrix& other) ;
-  // S21Matrix operator-(const S21Matrix& other) const;
-  // S21Matrix operator*(double number) const noexcept;
+  S21Matrix operator+(const S21Matrix& other);
+  S21Matrix operator-(const S21Matrix& other);
+  S21Matrix operator*(double number);
   bool operator==(const S21Matrix& other);
   S21Matrix& operator=(const S21Matrix& other); 
   S21Matrix& operator+=(const S21Matrix& other);
   S21Matrix& operator-=(const S21Matrix& other);
-  // S21Matrix& operator*=(double number);
+  S21Matrix& operator*=(double number);
+  // S21Matrix& operator*=(const S21Matrix& other);
   double& operator()(int row, int col); 
 /*
   double& operator()(int row, int col) &;
@@ -55,6 +54,7 @@ public:
   friend S21Matrix operator*(double number, const S21Matrix& matrix);
   S21Matrix operator*(const S21Matrix& other) const;
   S21Matrix& operator*=(const S21Matrix& other);*/
+
 };
 
 #endif

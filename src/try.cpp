@@ -6,24 +6,24 @@ using namespace std;
 
 int main() {
   try {
-    S21Matrix matrix(3, 3);
+    S21Matrix matrix(3, 5);
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        matrix.GetMatrixElement(i, j) = 10; 
+        matrix.GetMatrixElement(i, j) = 100; 
       }
     }
-    S21Matrix second(3, 3); 
-    for (int i = 0; i < 2; i++) {
-      for (int j = 0; j < 2; j++) {
-        matrix.GetMatrixElement(i, j) = 5; 
-      }
-    }
-    matrix -= second; 
+    // S21Matrix second(3, 3); 
+    // for (int i = 0; i < 3; i++) {
+    //   for (int j = 0; j < 3; j++) {
+    //     second.GetMatrixElement(i, j) = 2; 
+    //   }
+    // }
+    S21Matrix res = matrix* 5; 
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-       cout << matrix(i, j) <<" " ;
+       cout << res(i, j) <<" !! " ;
       }
        cout << endl; 
     }
