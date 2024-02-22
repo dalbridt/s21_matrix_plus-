@@ -15,26 +15,22 @@ void print_matrix(S21Matrix matrix) {
 
 int main() {
   try {
-    S21Matrix matrix(4, 4);
+    S21Matrix matrix(3, 3);
+    matrix(0, 0) = 1;
+    matrix(0, 1) = 2;
+    matrix(0, 2) = 3;
+    matrix(1, 0) = 0;
+    matrix(1, 1) = 4;
+    matrix(1, 2) = 2;
+    matrix(2, 0) = 5;
+    matrix(2, 1) = 2;
+    matrix(2, 2) = 1;
 
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        matrix.GetMatrixElement(i, j) = i;
-      }
-    }
+    S21Matrix second = matrix.CalcComplements();
     print_matrix(matrix);
     cout << endl;
-    S21Matrix second = matrix.GetMinor(2, 0); 
-    // S21Matrix second(2, 3);
-    // for (int i = 0; i < 2; i++) {
-    //   for (int j = 0; j < 3; j++) {
-    //     second.GetMatrixElement(i, j) = i - j;
-    //   }
-    // }
-   // print_matrix(second);
-    cout << endl;
-    // matrix *= second; 
-    print_matrix(second);
+    print_matrix(second); 
+
 
   } catch (exception &er) {
     cout << er.what() << endl;
