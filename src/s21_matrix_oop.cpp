@@ -82,7 +82,9 @@ void S21Matrix::set_cols(int new_cols) {
 
 bool S21Matrix::EqMatrix(const S21Matrix &other) {
   bool flag = true;
-  // нужно validate matrix
+  if(!this->isValid() || !other.isValid()){
+    throw std::logic_error("invalid matrix");
+  }
   if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
     flag = false;
   }
@@ -99,6 +101,9 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) {
   return flag;
 }
 void S21Matrix::SumMatrix(const S21Matrix &other){
+  if(!this->isValid() || !other.isValid()){
+    throw std::logic_error("invalid matrix");
+  }
   if(this->rows_ != other.rows_ || this->cols_ != other.cols_){
     throw std::logic_error("Matrix dimensions must be equal");
   }
@@ -110,6 +115,9 @@ void S21Matrix::SumMatrix(const S21Matrix &other){
   std::cout << std::endl;
 }
 void S21Matrix::SubMatrix(const S21Matrix &other){
+   if(!this->isValid() || !other.isValid()){
+    throw std::logic_error("invalid matrix");
+  }
     if(this->rows_ != other.rows_ || this->cols_ != other.cols_){
     throw std::logic_error("Matrix dimensions must be equal");
   }
@@ -120,7 +128,9 @@ void S21Matrix::SubMatrix(const S21Matrix &other){
   }
 }
 void S21Matrix::MulNumber(const double num){
-  //validate matrix 
+   if(!this->isValid()){
+    throw std::logic_error("invalid matrix");
+  }
    for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < cols_; ++j) {
       this->matrix_[i][j] *= num;
@@ -128,6 +138,9 @@ void S21Matrix::MulNumber(const double num){
    }
 }
 void S21Matrix::MulMatrix(const S21Matrix &other){
+   if(!this->isValid() || !other.isValid()){
+    throw std::logic_error("invalid matrix");
+  }
   if(this->cols_ != other.rows_){
     throw std::logic_error("matrix A columns must be equal to matrix B rows");
   }
@@ -150,11 +163,14 @@ void S21Matrix::MulMatrix(const S21Matrix &other){
 // S21Matrix S21Matrix::InverseMatrix(){}
 
 double &S21Matrix::GetMatrixElement(int row, int col) {
+  // check index is valid
   return matrix_[row][col];
 }
 
 // S21Matrix S21Matrix::GetMinor(const int row_s, const int col_s){}
-// bool isValid(){}
+bool S21Matrix::isValid() const {
+  return matrix_ != nullptr && cols_ > 0 && rows_ > 0;
+}
 
 S21Matrix S21Matrix::operator+(const S21Matrix& other){
 if( this->cols_ != other.cols_ || this->rows_ != other.rows_){

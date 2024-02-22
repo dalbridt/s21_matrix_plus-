@@ -24,13 +24,14 @@ int main() {
     }
     print_matrix(matrix);
     cout << endl;
-    S21Matrix second(2, 3);
-    for (int i = 0; i < 2; i++) {
-      for (int j = 0; j < 3; j++) {
-        second.GetMatrixElement(i, j) = i - j;
-      }
-    }
-    print_matrix(second);
+    S21Matrix second;
+    // S21Matrix second(2, 3);
+    // for (int i = 0; i < 2; i++) {
+    //   for (int j = 0; j < 3; j++) {
+    //     second.GetMatrixElement(i, j) = i - j;
+    //   }
+    // }
+   // print_matrix(second);
     cout << endl;
     matrix *= second; 
     print_matrix(matrix);
