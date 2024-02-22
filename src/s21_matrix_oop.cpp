@@ -30,8 +30,10 @@ S21Matrix::S21Matrix(const S21Matrix &other) {
   }
 }
 
-S21Matrix::S21Matrix(S21Matrix &&other)
-    : rows_(other.rows_), cols_(other.cols_), matrix_(other.matrix_) {
+S21Matrix::S21Matrix(S21Matrix &&other) {
+  this->rows_ = other.rows_;
+  this->cols_ = other.cols_; 
+  this->matrix_ = other.matrix_; 
   other.matrix_ = nullptr;
   other.rows_ = 0;
   other.cols_ = 0;
@@ -44,7 +46,7 @@ S21Matrix::~S21Matrix() {
       delete[] matrix_[i];
     }
     delete[] matrix_;
-  }
+  } 
 }
 
 int S21Matrix::get_cols() { return cols_; }
