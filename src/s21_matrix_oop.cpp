@@ -48,10 +48,10 @@ S21Matrix::~S21Matrix() {
   }
 }
 
-int S21Matrix::get_cols() { return cols_; }
-int S21Matrix::get_rows() { return rows_; }
+int S21Matrix::getCols() { return cols_; }
+int S21Matrix::getRows() { return rows_; }
 
-void S21Matrix::set_rows(int new_rows) {
+void S21Matrix::setRows(int new_rows) {
   if (new_rows < 1) {
     throw std::length_error("matrix rows should be > 1");
   }
@@ -66,7 +66,7 @@ void S21Matrix::set_rows(int new_rows) {
     *this = std::move(tmp);
   }
 }
-void S21Matrix::set_cols(int new_cols) {
+void S21Matrix::setCols(int new_cols) {
   if (new_cols < 1) {
     throw std::length_error("matrix columns should be > 1");
   }
@@ -295,8 +295,14 @@ S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
   if (this->matrix_ != nullptr) {
     delete[] this->matrix_;
   }
-  S21Matrix copy{other};
-  *this = std::move(copy);
+  this->rows_ = other.rows_;
+  this->cols_ = other.cols_;
+    for (int i = 0; i < other.rows_; ++i) {
+    for (int j = 0; j < other.cols_; ++j) {
+      matrix_[i][j] = other.matrix_[i][j];
+    }
+  }
+
   return *this;
 }
 

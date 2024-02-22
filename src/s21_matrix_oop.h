@@ -15,10 +15,10 @@ public:
   ~S21Matrix();
 
   // accessors and mutators
-  int get_cols();
-  int get_rows();
-  void set_rows(int new_rows);
-  void set_cols(int new_cols);
+  int getCols();
+  int getRows();
+  void setRows(int new_rows);
+  void setCols(int new_cols);
   // core functions
   bool EqMatrix(const S21Matrix &other);
   void SumMatrix(const S21Matrix &other);

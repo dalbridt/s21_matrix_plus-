@@ -1,24 +1,30 @@
-CC = g++ # gcc -lstdc++
+CC = g++ 
 SRC = s21_matrix_oop.cpp
-OBJ_OOP_O = s21_matrix_oop.o
-OBJ_TEST_O = s21_matrix_test.o
-ARCHIVER_OOP = s21_matrix_oop.a
-ARCHIVER_TEST = s21_matrix_test.a
+OBJ = s21_matrix_oop.o
+OBJ_TEST = s21_matrix_test.o
+LIB = s21_matrix_oop.a
 FLAGS= -Wall -Werror -Wextra -std=c++17
-TESTFLAGS=-lgtest
+TESTFLAGS= -pthread -lgtest
+HECK_FLAG = -lstdc++
 
 # OS choice 
 all: clean fromat test_sequence 
 test_sequence: test call_test # report genhtml 
-test: 
 s21_matrix_oop.a:
-	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ_OOP_O)
-#ar -rcs $(ARCHIVER_OOP) $(OBJ_OOP_O)
+	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ)
+	ar -rcs $(LIB) $(OBJ)
+	ranlib $(LIB)
+	rm -rf *.o
+test: clean s21_matrix_oop.a
+	$(CC) $(FLAGS) -c test.cpp -o test.o
+	$(CC) $(FLAGS) $(CHECK_FLAG) test.o $(LIB) $(TESTFLAGS) -o test
+	rm -rf *.o
+
 try: clean
 	$(CC) -c $(FLAGS) try.cpp -o try.o
-	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ_OOP_O)
-	ar -rcs $(ARCHIVER_OOP) try.o $(OBJ_OOP_O)
-	$(CC) -o try.out try.o $(OBJ_OOP_O)
+	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ)
+	ar -rcs $(LIB) try.o $(OBJ)
+	$(CC) -o try.out try.o $(OBJ)
 	./try.out
 clean: 
 	rm -rf *.out *.o *.gcno *.info s21_matrix_oop.a *.gcda *.a *.o
