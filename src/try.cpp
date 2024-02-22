@@ -24,7 +24,7 @@ int main() {
     }
     print_matrix(matrix);
     cout << endl;
-    S21Matrix second;
+    S21Matrix second = matrix.Transpose(); 
     // S21Matrix second(2, 3);
     // for (int i = 0; i < 2; i++) {
     //   for (int j = 0; j < 3; j++) {
@@ -33,8 +33,8 @@ int main() {
     // }
    // print_matrix(second);
     cout << endl;
-    matrix *= second; 
-    print_matrix(matrix);
+    // matrix *= second; 
+    print_matrix(second);
 
   } catch (exception &er) {
     cout << er.what() << endl;

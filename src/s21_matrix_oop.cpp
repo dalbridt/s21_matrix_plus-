@@ -112,7 +112,6 @@ void S21Matrix::SumMatrix(const S21Matrix &other){
       (*this)(i,j) += other.matrix_[i][j]; 
     }
   }
-  std::cout << std::endl;
 }
 void S21Matrix::SubMatrix(const S21Matrix &other){
    if(!this->isValid() || !other.isValid()){
@@ -157,7 +156,18 @@ void S21Matrix::MulMatrix(const S21Matrix &other){
   *this = std::move(res); 
 
 }
-// S21Matrix S21Matrix::Transpose(){}
+S21Matrix S21Matrix::Transpose(){
+   if(!this->isValid()){
+    throw std::logic_error("invalid matrix");
+  }
+  S21Matrix transposed(cols_, rows_); 
+    for (int i = 0; i < rows_; i++) {
+        for (int j = 0; j < cols_; j++) {
+          transposed(j, i) = matrix_[i][j];
+        }
+      }
+  return transposed; 
+}
 // S21Matrix S21Matrix::CalcComplements(){}
 // double S21Matrix::Determinant(){}
 // S21Matrix S21Matrix::InverseMatrix(){}

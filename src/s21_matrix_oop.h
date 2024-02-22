@@ -31,7 +31,7 @@ public:
   S21Matrix InverseMatrix();
 
   // helpers 
-  double& GetMatrixElement(int row, int col); // по ссылке, чтоб можно было поменять E.G.: matrix.GetMatrixElement(1, 2) = 5.0; 
+  double& GetMatrixElement(int row, int col); 
   S21Matrix GetMinor(const int row_s, const int col_s);
   bool isValid() const; 
 
