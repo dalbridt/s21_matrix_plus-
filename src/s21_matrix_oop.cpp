@@ -37,7 +37,6 @@ S21Matrix::S21Matrix(S21Matrix &&other) {
   other.matrix_ = nullptr;
   other.rows_ = 0;
   other.cols_ = 0;
-  std::cout << "move constructor called" << std::endl; 
 }
 
 S21Matrix::~S21Matrix() {
@@ -128,9 +127,23 @@ void S21Matrix::MulNumber(const double num){
     }
    }
 }
-// void S21Matrix::MulMatrix(const S21Matrix &other){
-//   // WRITEME 
-// }
+void S21Matrix::MulMatrix(const S21Matrix &other){
+  if(this->cols_ != other.rows_){
+    throw std::logic_error("matrix A columns must be equal to matrix B rows");
+  }
+  S21Matrix res(this->rows_, other.cols_); 
+   for (int i = 0; i < this->rows_; i++) {
+          for (int j = 0; j < other.cols_; j++) {
+            res(i, j)= 0;
+            for (int k = 0; k < other.rows_; k++) {
+             res(i, j) += (this->matrix_[i][k] * other.matrix_[k][j]);
+            }
+          }
+        }
+
+  *this = std::move(res); 
+
+}
 // S21Matrix S21Matrix::Transpose(){}
 // S21Matrix S21Matrix::CalcComplements(){}
 // double S21Matrix::Determinant(){}
@@ -196,7 +209,10 @@ S21Matrix& S21Matrix::operator*=(double number){
   MulNumber(number); 
   return *this; 
 }
-// S21Matrix& operator*=(const S21Matrix& other){}
+S21Matrix& S21Matrix::operator*=(const S21Matrix& other){
+  MulMatrix(other); 
+  return *this;
+}
 
 double& S21Matrix::operator()(int row, int col) {
   return GetMatrixElement(row, col); 
