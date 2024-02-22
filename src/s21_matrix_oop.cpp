@@ -219,7 +219,23 @@ S21Matrix S21Matrix::CalcComplements() {
   }
   return result;
 }
-// S21Matrix S21Matrix::InverseMatrix(){}
+S21Matrix S21Matrix::InverseMatrix() {
+  if (!this->isValid()) {
+    throw std::logic_error("invalid matrix");
+  }
+  if (rows_ != cols_) {
+    throw std::logic_error("Matrix dimensions must be equal");
+  }
+  double determinant = Determinant();
+  if (determinant == 0) {
+    throw std::logic_error("Determinant must be non-zero");
+  }
+
+  S21Matrix temp_calc = CalcComplements();
+  S21Matrix result = temp_calc.Transpose();
+  result *= (1 / determinant);
+  return result;
+}
 
 double &S21Matrix::GetMatrixElement(int row, int col) {
   if ((row < 0 || row > rows_ - 1) || (col < 0 || col > cols_ - 1)) {
@@ -274,20 +290,13 @@ S21Matrix S21Matrix::operator*(double number) {
   return result;
 }
 bool S21Matrix::operator==(const S21Matrix &other) { return EqMatrix(other); }
+
 S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
   if (this->matrix_ != nullptr) {
     delete[] this->matrix_;
   }
-  // можно бы было вызвать конструктор копирования, но я хз как
-  this->rows_ = other.rows_;
-  this->cols_ = other.cols_;
-  this->matrix_ = new double *[this->rows_];
-  for (int i = 0; i < this->rows_; ++i) {
-    this->matrix_[i] = new double[this->cols_];
-    for (int j = 0; j < this->cols_; ++j) {
-      this->matrix_[i][j] = other.matrix_[i][j];
-    }
-  }
+  S21Matrix copy{other};
+  *this = std::move(copy);
   return *this;
 }
 
