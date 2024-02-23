@@ -10,7 +10,7 @@ LCOVFLAGS = --ignore-errors inconsistent --ignore-errors mismatch
 
 # OS choice 
 all: clean fromat test_sequence 
-test_sequence: test call_test # report genhtml 
+test_sequence: clean test gcov_report 
 s21_matrix_oop.a:
 	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ)
 	ar -rcs $(LIB) $(OBJ)
@@ -24,6 +24,7 @@ test: clean s21_matrix_oop.a
 gcov_report: add_coverage_flag test
 	./test
 	lcov -t "test" -o test.info -c -d ./  --no-external $(LCOVFLAGS)
+	lcov --remove test.info 'test.cpp' -o test.info
 	genhtml -o report test.info $(LCOVFLAGS)
 	open report/index.html
 add_coverage_flag:
@@ -40,5 +41,5 @@ clean:
 	rm -rf report 
 	rm -rf test
 leaks: 
-	leaks -atExit -- ./try.out
+	leaks -atExit -- ./test
 

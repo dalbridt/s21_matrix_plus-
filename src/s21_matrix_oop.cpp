@@ -277,33 +277,41 @@ S21Matrix S21Matrix::operator+(const S21Matrix &other) {
 
   return result;
 }
+
 S21Matrix S21Matrix::operator-(const S21Matrix &other) {
   S21Matrix result(*this);
   result.SubMatrix(other);
-
   return result;
 }
+
 S21Matrix S21Matrix::operator*(double number) {
   S21Matrix result(*this);
   result.MulNumber(number);
-
   return result;
 }
-bool S21Matrix::operator==(const S21Matrix &other) const{ return EqMatrix(other); }
+bool S21Matrix::operator==(const S21Matrix &other) const {
+  return EqMatrix(other);
+}
 
 S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
+  if (!other.isValid()) {
+    throw std::logic_error("invalid matrix");
+  }
   if (this->matrix_ != nullptr) {
     delete[] this->matrix_;
   }
   this->rows_ = other.rows_;
   this->cols_ = other.cols_;
-    for (int i = 0; i < other.rows_; ++i) {
-    for (int j = 0; j < other.cols_; ++j) {
+
+  matrix_ = new double *[rows_];
+
+  for (int i = 0; i < rows_; ++i) {
+    matrix_[i] = new double[cols_];
+    for (int j = 0; j < cols_; ++j) {
       matrix_[i][j] = other.matrix_[i][j];
     }
   }
-
-  return *this;
+return *this;
 }
 
 S21Matrix &S21Matrix::operator+=(const S21Matrix &other) {
