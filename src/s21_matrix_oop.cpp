@@ -80,7 +80,7 @@ void S21Matrix::setCols(int new_cols) {
   *this = std::move(tmp);
 }
 
-bool S21Matrix::EqMatrix(const S21Matrix &other) {
+bool S21Matrix::EqMatrix(const S21Matrix &other) const {
   bool flag = true;
   if (!this->isValid() || !other.isValid()) {
     throw std::logic_error("invalid matrix");
@@ -109,7 +109,7 @@ void S21Matrix::SumMatrix(const S21Matrix &other) {
   }
   for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < cols_; ++j) {
-      (*this)(i, j) += other.matrix_[i][j];
+      this->matrix_[i][j] += other.matrix_[i][j];
     }
   }
 }
@@ -289,7 +289,7 @@ S21Matrix S21Matrix::operator*(double number) {
 
   return result;
 }
-bool S21Matrix::operator==(const S21Matrix &other) { return EqMatrix(other); }
+bool S21Matrix::operator==(const S21Matrix &other) const{ return EqMatrix(other); }
 
 S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
   if (this->matrix_ != nullptr) {

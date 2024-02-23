@@ -4,8 +4,9 @@ OBJ = s21_matrix_oop.o
 OBJ_TEST = s21_matrix_test.o
 LIB = s21_matrix_oop.a
 FLAGS= -Wall -Werror -Wextra -std=c++17
-TESTFLAGS= -pthread -lgtest
+TESTFLAGS= -pthread -lgtest -lgmock
 HECK_FLAG = -lstdc++
+LCOVFLAGS = --ignore-errors inconsistent --ignore-errors mismatch
 
 # OS choice 
 all: clean fromat test_sequence 
@@ -19,6 +20,14 @@ test: clean s21_matrix_oop.a
 	$(CC) $(FLAGS) -c test.cpp -o test.o
 	$(CC) $(FLAGS) $(CHECK_FLAG) test.o $(LIB) $(TESTFLAGS) -o test
 	rm -rf *.o
+	./test
+gcov_report: add_coverage_flag test
+	./test
+	lcov -t "test" -o test.info -c -d ./  --no-external $(LCOVFLAGS)
+	genhtml -o report test.info $(LCOVFLAGS)
+	open report/index.html
+add_coverage_flag:
+	$(eval FLAGS += --coverage)
 
 try: clean
 	$(CC) -c $(FLAGS) try.cpp -o try.o
@@ -28,7 +37,8 @@ try: clean
 	./try.out
 clean: 
 	rm -rf *.out *.o *.gcno *.info s21_matrix_oop.a *.gcda *.a *.o
-	rm -rf report
+	rm -rf report 
+	rm -rf test
 leaks: 
 	leaks -atExit -- ./try.out
 

@@ -20,7 +20,7 @@ public:
   void setRows(int new_rows);
   void setCols(int new_cols);
   // core functions
-  bool EqMatrix(const S21Matrix &other);
+  bool EqMatrix(const S21Matrix &other) const;
   void SumMatrix(const S21Matrix &other);
   void SubMatrix(const S21Matrix &other);
   void MulNumber(const double num);
@@ -39,7 +39,7 @@ public:
   S21Matrix operator+(const S21Matrix &other);
   S21Matrix operator-(const S21Matrix &other);
   S21Matrix operator*(double number);
-  bool operator==(const S21Matrix &other);
+  bool operator==(const S21Matrix &other) const;
   S21Matrix &operator=(const S21Matrix &other);
   S21Matrix &operator+=(const S21Matrix &other);
   S21Matrix &operator-=(const S21Matrix &other);
