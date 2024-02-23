@@ -42,4 +42,6 @@ clean:
 	rm -rf test
 leaks: 
 	leaks -atExit -- ./test
+clang-format:
+	clang-format -n *.cpp *.h
 

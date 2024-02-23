@@ -46,7 +46,6 @@ public:
   S21Matrix &operator*=(double number);
   S21Matrix &operator*=(const S21Matrix &other);
   double &operator()(int row, int col);
-
 };
 
 #endif

@@ -173,7 +173,8 @@ double S21Matrix::Determinant() {
     throw std::logic_error("invalid matrix");
   }
   if (rows_ != cols_) {
-    throw std::logic_error("Matrix dimensions must be equal");
+    throw std::logic_error(
+        "To get Determinant matrix dimensions must be equal");
   }
   double result;
   switch (rows_) {
@@ -201,7 +202,7 @@ S21Matrix S21Matrix::CalcComplements() {
   if (!this->isValid()) {
     throw std::logic_error("invalid matrix");
   }
-  if (rows_ != cols_ && (rows_ < 2 && cols_ < 2)) {
+  if (rows_ != cols_ || (rows_ < 2 && cols_ < 2)) {
     throw std::logic_error(
         "Matrix dimensions must be equal and must be greater than 1");
   }
@@ -269,9 +270,6 @@ bool S21Matrix::isValid() const {
 }
 
 S21Matrix S21Matrix::operator+(const S21Matrix &other) {
-  if (this->cols_ != other.cols_ || this->rows_ != other.rows_) {
-    throw std::logic_error("Matrix dimensions must be equal");
-  }
   S21Matrix result(*this);
   result.SumMatrix(other);
 
@@ -311,7 +309,7 @@ S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
       matrix_[i][j] = other.matrix_[i][j];
     }
   }
-return *this;
+  return *this;
 }
 
 S21Matrix &S21Matrix::operator+=(const S21Matrix &other) {

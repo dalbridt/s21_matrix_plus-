@@ -33,12 +33,6 @@ TEST(OperatorParentheses3, MatrixsetterWrongIndexes) {
   EXPECT_THROW(matrix_a(3, 0) = 1, std::logic_error);
 }
 
-// TEST(ewf, ef) {
-//   S21Matrix matrix_a(2, 2);
-//   S21Matrix matrix_b;
-//   EXPECT_THROW(matrix_a = matrix_b, std::logic_error);
-// }
-
 TEST(eqMatrix3, NonEqMatrix) {
   S21Matrix matrix_a(1, 3);
   matrix_a(0, 0) = 1;
@@ -140,6 +134,13 @@ TEST(OperatorMulMatrix2, False) {
   matrix_b(1, 1) = 2;
 
   EXPECT_THROW(matrix_a *= matrix_b, std::logic_error);
+}
+
+TEST(OperatorEqal, Invalid) {
+  S21Matrix matrix_a(2, 1);
+  S21Matrix matrix_b;
+
+  EXPECT_THROW(matrix_a = matrix_b, std::logic_error);
 }
 
 TEST(invalidmatrix, False) {
@@ -297,7 +298,7 @@ TEST(SimpleMathOperations, SubMatrix1) {
 TEST(SimpleMathOperations, SumMatrix1) {
   auto test1 = S21Matrix(2, 2);
   auto test_res = S21Matrix(2, 2);
-   for (int i = 0; i < 2; ++i) {
+  for (int i = 0; i < 2; ++i) {
     for (int j = 0; j < 2; ++j) {
       test1(i, j) = 1;
       test_res(i, j) = 2;
@@ -412,6 +413,17 @@ TEST(LinearOperations, CalcComplements) {
   EXPECT_EQ(test1, test2);
 }
 
+TEST(LinearOperations, CalcComplements1) {
+  auto test1 = S21Matrix(2, 3);
+  test1(0, 0) = 1;
+  test1(0, 1) = 2;
+  test1(0, 2) = 3;
+  test1(1, 0) = 0;
+  test1(1, 1) = 4;
+  test1(1, 2) = 2;
+  EXPECT_THROW(test1.CalcComplements(), std::logic_error);
+}
+
 TEST(LinearOperations, Determinant) {
   auto test1 = S21Matrix(3, 3);
   test1(0, 0) = 1;
@@ -423,6 +435,12 @@ TEST(LinearOperations, Determinant) {
   test1(2, 0) = 5;
   test1(2, 1) = 2;
   test1(2, 2) = 1;
+  EXPECT_DOUBLE_EQ(test1.Determinant(), -40);
+}
+
+TEST(LinearOperations, Determinant1) {
+  auto test1 = S21Matrix(1, 1);
+  test1(0, 0) = -40;
   EXPECT_DOUBLE_EQ(test1.Determinant(), -40);
 }
 
@@ -469,13 +487,23 @@ TEST(Technical, setRows) {
   auto test1 = S21Matrix(1, 1);
   test1.setRows(5);
   EXPECT_EQ(test1.getRows(), 5);
-  // test1.setRows(1);
+}
+
+TEST(Technical, setRows1) {
+  auto test1 = S21Matrix(1, 1);
+  EXPECT_THROW(test1.setRows(-1), std::length_error);
 }
 
 TEST(Technical, setCols) {
   auto test1 = S21Matrix(1, 1);
   test1.setCols(5);
   EXPECT_EQ(test1.getCols(), 5);
+  test1.setCols(1);
+}
+
+TEST(Technical, setCols1) {
+  auto test1 = S21Matrix(1, 1);
+  EXPECT_THROW(test1.setCols(0), std::length_error);
   test1.setCols(1);
 }
 
