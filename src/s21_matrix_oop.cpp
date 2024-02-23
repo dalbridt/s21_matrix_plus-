@@ -71,7 +71,9 @@ void S21Matrix::setCols(int new_cols) {
     throw std::length_error("matrix columns should be > 1");
   }
   S21Matrix tmp(rows_, new_cols);
+
   int min = std::min(cols_, new_cols);
+
   for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < min; ++j) {
       tmp(i, j) = (*this)(i, j);
@@ -296,6 +298,9 @@ S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
     throw std::logic_error("invalid matrix");
   }
   if (this->matrix_ != nullptr) {
+    for (int i = 0; i < rows_; ++i) {
+      delete[] matrix_[i];
+    }
     delete[] this->matrix_;
   }
   this->rows_ = other.rows_;
@@ -309,6 +314,7 @@ S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
       matrix_[i][j] = other.matrix_[i][j];
     }
   }
+
   return *this;
 }
 

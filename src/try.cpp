@@ -15,14 +15,11 @@ void print_matrix(S21Matrix matrix) {
 
 int main() {
   try {
-    auto test1 = S21Matrix(2, 3);
-    test1(0, 0) = 1;
-    test1(0, 1) = 2;
-    test1(0, 2) = 3;
-    test1(1, 0) = 0;
-    test1(1, 1) = 4;
-    test1(1, 2) = 2;
-    test1.CalcComplements();
+    auto test1 = S21Matrix(1, 1);
+    test1.setCols(5);
+    test1.setRows(5);
+    print_matrix(test1);
+
   } catch (exception &er) {
     cout << er.what() << endl;
   }

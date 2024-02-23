@@ -498,13 +498,11 @@ TEST(Technical, setCols) {
   auto test1 = S21Matrix(1, 1);
   test1.setCols(5);
   EXPECT_EQ(test1.getCols(), 5);
-  test1.setCols(1);
 }
 
 TEST(Technical, setCols1) {
   auto test1 = S21Matrix(1, 1);
   EXPECT_THROW(test1.setCols(0), std::length_error);
-  test1.setCols(1);
 }
 
 int main(int argc, char **argv) {

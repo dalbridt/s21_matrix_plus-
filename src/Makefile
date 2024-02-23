@@ -41,7 +41,8 @@ clean:
 	rm -rf report 
 	rm -rf test
 leaks: 
-	leaks -atExit -- ./test
+	leaks -atExit --  ./test
 clang-format:
-	clang-format -n *.cpp *.h
-
+	clang-format -i *.cpp *.h
+valgrind:
+	valgrind --tool=memcheck --leak-check=yes ./test 2> output.txt
