@@ -2,12 +2,12 @@
 #define S21MATRIX
 
 class S21Matrix {
-private:
+ private:
   int rows_, cols_;
   double **matrix_;
   const double EPS = 1e-7;
 
-public:
+ public:
   S21Matrix();
   S21Matrix(int rows, int cols);
   S21Matrix(const S21Matrix &other);

@@ -1,4 +1,5 @@
 #include "s21_matrix_oop.h"
+
 #include <cmath>
 #include <iostream>
 
@@ -180,22 +181,22 @@ double S21Matrix::Determinant() {
   }
   double result;
   switch (rows_) {
-  case 1:
-    result = matrix_[0][0];
-    break;
-  case 2:
-    result = matrix_[0][0] * matrix_[1][1] - matrix_[0][1] * matrix_[1][0];
-    break;
-  default:
-    result = 0;
-    int sign = 1;
-    for (int i = 0; i < cols_; i++) {
-      S21Matrix minor = this->GetMinor(0, i);
-      double determ_min = minor.Determinant();
-      result += sign * matrix_[0][i] * determ_min;
-      sign = -sign;
-    }
-    break;
+    case 1:
+      result = matrix_[0][0];
+      break;
+    case 2:
+      result = matrix_[0][0] * matrix_[1][1] - matrix_[0][1] * matrix_[1][0];
+      break;
+    default:
+      result = 0;
+      int sign = 1;
+      for (int i = 0; i < cols_; i++) {
+        S21Matrix minor = this->GetMinor(0, i);
+        double determ_min = minor.Determinant();
+        result += sign * matrix_[0][i] * determ_min;
+        sign = -sign;
+      }
+      break;
   }
   return result;
 }

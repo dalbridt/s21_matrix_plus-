@@ -1,7 +1,8 @@
-#include "s21_matrix_oop.h"
 #include <exception>
 #include <iostream>
 #include <string>
+
+#include "s21_matrix_oop.h"
 using namespace std;
 
 void print_matrix(S21Matrix matrix) {
