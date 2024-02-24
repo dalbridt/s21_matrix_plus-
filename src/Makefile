@@ -34,13 +34,6 @@ gcov_report: add_coverage_flag test
 	$(OPEN) report/index.html
 add_coverage_flag:
 	$(eval FLAGS += --coverage)
-
-try: clean
-	$(CC) -c $(FLAGS) try.cpp -o try.o
-	$(CC) -c $(FLAGS) $(SRC) -o $(OBJ)
-	ar -rcs $(LIB) try.o $(OBJ)
-	$(CC) -o try.out try.o $(OBJ)
-	./try.out
 clean: 
 	rm -rf *.out *.o *.gcno *.info s21_matrix_oop.a *.gcda *.a *.o *.txt
 	rm -rf report 
